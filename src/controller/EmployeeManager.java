@@ -1,13 +1,15 @@
-package Controller;
+package controller;
 
-import Model.Employee;
-import Model.FulltimeEmployee;
-import Model.ParttimeEmployee;
+import model.Employee;
+import model.FulltimeEmployee;
+import model.ParttimeEmployee;
+import storage.EmployeeFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class EmployeeManager {
-    public static ArrayList<Employee> employeeList;
+    public static ArrayList<Employee> employeeList = EmployeeFile.readFile();
 
     public static void showAllEmployee(){
         for(Employee m : employeeList){
@@ -25,6 +27,11 @@ public class EmployeeManager {
 
     public static void deleteEmployeeById(int index){
         employeeList.remove(index);
+        try {
+            EmployeeFile.writeFile(employeeList);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static int getIndexById(String inputEmployeeId) {

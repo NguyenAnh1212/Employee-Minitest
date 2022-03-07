@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 public class ParttimeEmployee extends Employee {
     public static final int SALARYPERHOUR = 100;

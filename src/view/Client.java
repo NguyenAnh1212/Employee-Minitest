@@ -1,20 +1,34 @@
-package View;
+package view;
 
-import Controller.EmployeeManager;
-import Model.Employee;
-import Model.FulltimeEmployee;
-import Model.ParttimeEmployee;
+import controller.EmployeeManager;
+import model.Employee;
+import model.FulltimeEmployee;
+import model.ParttimeEmployee;
+import storage.EmployeeFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Client {
-    private static ArrayList<Employee> employeeListClient = EmployeeManager.employeeList;
+    private static ArrayList<Employee> employeeListClient = EmployeeFile.readFile();
 
     public static void main(String[] args) {
+        System.out.println("Số nhân viên bạn muốn thêm vào: ");
+        Scanner sc = new Scanner(System.in);
+        int inputNumber = sc.nextInt();
+        for (int i = 0; i < inputNumber; i++) {
+            addNewEmployee();
+        }
 //        showAllEmployee();
-        addNewEmployee();
-        System.out.println();
+//        System.out.println("\n");
+//        EmployeeManager.deleteEmployeeById(0);
+        showAllEmployee();
+//        System.out.println("\n");
+//        showAllEmployee();
+
+
+
     }
     public static void showAllEmployee(){
         if(employeeListClient.size() == 0){
@@ -34,17 +48,35 @@ public class Client {
         switch (choice){
             case 1:
                 addNewFulltimeEmployee();
+                break;
             case 2:
                 addNewParttimeEmployee();
+                break;
+            default:
+                System.out.println("Mời nhập lại");
         }
+
+
     }
     public static void addNewFulltimeEmployee(){
+        EmployeeManager.employeeList = employeeListClient;
         Employee fulltimeEmployee = creatNewFulltimeEmployee();
         EmployeeManager.addNewEmployee(fulltimeEmployee);
+        try {
+            EmployeeFile.writeFile(employeeListClient);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     public static void addNewParttimeEmployee(){
+        EmployeeManager.employeeList = employeeListClient;
         Employee parttimeEmployee = creatNewParttimeEmployee();
         EmployeeManager.addNewEmployee(parttimeEmployee);
+        try {
+            EmployeeFile.writeFile(employeeListClient);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static Employee creatNewFulltimeEmployee(){
