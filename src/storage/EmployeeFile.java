@@ -7,10 +7,18 @@ import java.util.ArrayList;
 
 public class EmployeeFile {
     public static void writeFile(ArrayList<Employee> employees) throws IOException {
+        File file = new File("demo1.txt");
+        if (!file.exists()){
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
         try {
-            fos = new FileOutputStream("Employee.anh");
+            fos = new FileOutputStream(file);
             oos = new ObjectOutputStream(fos);
             oos.writeObject(employees);
         } catch (FileNotFoundException e) {
@@ -24,7 +32,14 @@ public class EmployeeFile {
     }
 
     public static ArrayList<Employee> readFile(){
-        File file = new File("Employee.anh");
+        File file = new File("demo1.txt");
+        if (!file.exists()){
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         try {
             FileInputStream fis = new FileInputStream(file);
             ObjectInputStream ois = new ObjectInputStream(fis);

@@ -20,10 +20,10 @@ public class Client {
         for (int i = 0; i < inputNumber; i++) {
             addNewEmployee();
         }
-//        showAllEmployee();
+        showAllEmployee();
 //        System.out.println("\n");
 //        EmployeeManager.deleteEmployeeById(0);
-        showAllEmployee();
+//        showAllEmployee();
 //        System.out.println("\n");
 //        showAllEmployee();
 
